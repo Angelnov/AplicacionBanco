@@ -5,6 +5,8 @@
  */
 package aplicacionbanco;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Angelau
@@ -109,4 +111,23 @@ public class CuentaBancaria {
     public void setNcuenta(String ncuenta) {
         this.ncuenta = ncuenta;
     }
+    
+    public void ingresar(double ingreso)throws Exception{  
+            if(ingreso>0){
+              this.saldo=saldo+ingreso;
+            }else{
+                throw new Exception("Ingreso incorrecto");
+            }   
+    }
+    public void retirar()throws Exception{
+       Scanner snr=new Scanner(System.in);
+       System.out.println("Introduzca una cantidad: ");
+       int reintegro=snr.nextInt();
+       if (reintegro<saldo){
+           this.saldo-=reintegro;
+       }else{
+           throw new Exception("Cantidad insuficiente");
+       }
+      
+   }
 }

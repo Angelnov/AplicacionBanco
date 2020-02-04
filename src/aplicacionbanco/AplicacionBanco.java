@@ -132,26 +132,36 @@ public class AplicacionBanco {
     
     ArrayList<CuentaBancaria> listacuentas = new ArrayList<CuentaBancaria>();
     
-    
+    try {
+     boolean flag = true;
+     while(flag){
     System.out.println("Eliga una se las siguientes opciones.");
-    System.out.println("Abrir una nueva cuenta.");
-    System.out.println("Ver un listado de las cuentas disponibles");
-    System.out.println("Obtener los datos de una cuenta concreta.");
-    System.out.println("Realizar un ingreso en una cuenta.");
-    System.out.println("Retirar efectivo de una cuenta.");
-    System.out.println("Consultar el saldo actual de una cuenta.");
-    System.out.println("Salir de la aplicación.");
+    System.out.println("1.Abrir una nueva cuenta.");
+    System.out.println("2.Ver un listado de las cuentas disponibles");
+    System.out.println("3.Obtener los datos de una cuenta concreta.");
+    System.out.println("4.Realizar un ingreso en una cuenta.");
+    System.out.println("5.Retirar efectivo de una cuenta.");
+    System.out.println("6.Consultar el saldo actual de una cuenta.");
+    System.out.println("7.Salir de la aplicación.");
     
     Scanner so = new Scanner(System.in);
+    
     int optiontemp = so.nextInt();
+    
     switch(optiontemp){
         case 1:
             CuentaBancaria cuenta1= nuevaCuenta();    
             listacuentas.add(cuenta1);
             break;
         case 2:
+            for (int i =0; i<listacuentas.size(); i++){
+                System.out.println(listacuentas.get(i).getNcuenta());
+            }
+            break;
+        case 3:
             System.out.println("Introduzca el numero de cuenta a encontrar.");
             String cuentatemp= so.nextLine();
+            so.nextLine();
             for (CuentaBancaria cuenta : listacuentas) {
                 if (cuenta.getNcuenta()==cuentatemp){
                 System.out.println("Numero cuenta: "+cuenta.getNcuenta());
@@ -159,10 +169,50 @@ public class AplicacionBanco {
                 System.out.println("Titular: "+cuenta.getTitular().getNombre());
                 }
             }
+            break;
+        case 4:
+            System.out.println("Introduzca el numero de cuenta a ingresar.");
+            String cuentatemp2= so.nextLine();
+            for (CuentaBancaria cuenta : listacuentas) {
+                if (cuenta.getNcuenta()==cuentatemp2){
+                    System.out.println("Introduzca la cantidad a ingresar.");
+                    double ingreso=so.nextDouble();
+                    cuenta.ingresar(ingreso);                  
+                }
+            
+            }
+                    
+            break;
+        case 5:
+            System.out.println("Introduzca el numero de cuenta.");
+            String cuentatemp3= so.nextLine();
+            for (CuentaBancaria cuenta : listacuentas) {
+                if (cuenta.getNcuenta()==cuentatemp3){
+                    System.out.println("Introduzca la cantidad a retirar.");
+                    double reintegro=so.nextDouble();
+                    cuenta.retirar();
+                }
+            }
+            break;
+        case 6:
+            System.out.println("Introduzca el numero de cuenta a ingresar.");
+            String cuentatemp4= so.nextLine();
+            for (CuentaBancaria cuenta : listacuentas) {
+                if (cuenta.getNcuenta()==cuentatemp4){
+                    cuenta.getSaldo();
+                }
+            
+            
+            }
+            break;
+        case 7:
+            System.out.println("Muchas Gracias por la visita");
+            flag=false;
+            break;
     }
-   
-    //TO
-        
-        
+     }
+}catch(Exception e) {
+     System.out.println("Valor incorrecto: "+e.getMessage());
+                    }
 }
 }
