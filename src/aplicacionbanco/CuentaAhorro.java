@@ -12,9 +12,13 @@ package aplicacionbanco;
 public class CuentaAhorro extends CuentaBancaria {
     private double tipointeres;
     
-    public CuentaAhorro(double tipointeres, Persona titular, double saldo, String ncuenta){
+    public CuentaAhorro(double tipointeres, Persona titular, double saldo, String ncuenta)throws Exception{
         super(titular, saldo, ncuenta);
         this.tipointeres=tipointeres;
+        if(super.saldo<0){throw new Exception("Saldo insuficiente");
+        }        
+        if(this.tipointeres<=0){throw new Exception("Saldo insuficiente");
+        }
     }
     
 }

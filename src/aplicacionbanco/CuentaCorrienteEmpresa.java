@@ -16,10 +16,13 @@ public class CuentaCorrienteEmpresa extends CuentaCorriente {
     private double interesdescubierto;
     
     
-    public CuentaCorrienteEmpresa(double maxdescubierto, double interesdescubierto, Hashtable entidades, Persona titular, double saldo, String ncuenta){
+    public CuentaCorrienteEmpresa(double maxdescubierto, double interesdescubierto, Hashtable entidades, Persona titular, double saldo, String ncuenta)throws Exception{
         super(entidades, titular, saldo, ncuenta);
         this.maxdescubierto=maxdescubierto;
         this.interesdescubierto=interesdescubierto;
+        if(this.maxdescubierto>=0){throw new Exception("Maximo incorrecto");
+        } 
+        if(this.saldo<this.maxdescubierto) throw new Exception("Saldo insuficiente");
     }
     
 }

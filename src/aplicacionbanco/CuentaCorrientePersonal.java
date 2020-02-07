@@ -14,9 +14,13 @@ import java.util.Hashtable;
 public class CuentaCorrientePersonal extends CuentaCorriente {
     private double comisionman;
     
-    public CuentaCorrientePersonal(double comisionman, Hashtable entidades, Persona titular, double saldo, String ncuenta){
+    public CuentaCorrientePersonal(double comisionman, Hashtable entidades, Persona titular, double saldo, String ncuenta)throws Exception{
         super(entidades, titular, saldo, ncuenta);
         this.comisionman=comisionman;
+        if(super.saldo<0){throw new Exception("Saldo insuficiente");
+        }        
+        if(this.comisionman<0){throw new Exception("Comision incorrecta");
+        } 
     }
     
 }

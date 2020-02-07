@@ -52,7 +52,7 @@ public class AplicacionBanco {
     }*/
     
     
-    public static CuentaBancaria nuevaCuenta(){
+    public static CuentaBancaria nuevaCuenta()throws Exception{
         Scanner sc = new Scanner(System.in);
         Scanner sn = new Scanner(System.in);
         
@@ -60,7 +60,7 @@ public class AplicacionBanco {
         System.out.println("Introduzca numero de cuenta");
         String ncuenta=sc.nextLine();
         if(CuentaBancaria.validarnum(ncuenta)==false){
-            //TODO arreglar
+            throw new Exception("Cuenta incorrecta.");
         }
         System.out.println("Introduzca el saldo");
         double saldo=sc.nextDouble();
@@ -102,7 +102,7 @@ public class AplicacionBanco {
                 
                 break;
             case 3:
-                System.out.println("Introduzca maximo descubierto");
+                System.out.println("Introduzca maximo descubierto(en negativo)");
                 double maxdescubierto = sn.nextDouble();
                 System.out.println("Introduzca interes descubierto");
                 double interesdescubierto = sn.nextDouble();
@@ -133,6 +133,7 @@ public class AplicacionBanco {
     ArrayList<CuentaBancaria> listacuentas = new ArrayList<CuentaBancaria>();
     
     try {
+    Scanner so = new Scanner(System.in);
      boolean flag = true;
      while(flag){
     System.out.println("Eliga una se las siguientes opciones.");
@@ -144,9 +145,9 @@ public class AplicacionBanco {
     System.out.println("6.Consultar el saldo actual de una cuenta.");
     System.out.println("7.Salir de la aplicación.");
     
-    Scanner so = new Scanner(System.in);
     
-    int optiontemp = so.nextInt();
+    
+    int optiontemp = Integer.parseInt(so.nextLine());
     
     switch(optiontemp){
         case 1:
@@ -160,10 +161,9 @@ public class AplicacionBanco {
             break;
         case 3:
             System.out.println("Introduzca el numero de cuenta a encontrar.");
-            String cuentatemp= so.nextLine();
-            so.nextLine();
-            for (CuentaBancaria cuenta : listacuentas) {
-                if (cuenta.getNcuenta()==cuentatemp){
+            String cuentatemp= so.nextLine();           
+            for (CuentaBancaria cuenta : listacuentas) {                
+                if (cuenta.getNcuenta().equals(cuentatemp)){//EQUALS
                 System.out.println("Numero cuenta: "+cuenta.getNcuenta());
                 System.out.println("Saldo: "+cuenta.getSaldo());
                 System.out.println("Titular: "+cuenta.getTitular().getNombre());
@@ -174,9 +174,9 @@ public class AplicacionBanco {
             System.out.println("Introduzca el numero de cuenta a ingresar.");
             String cuentatemp2= so.nextLine();
             for (CuentaBancaria cuenta : listacuentas) {
-                if (cuenta.getNcuenta()==cuentatemp2){
+                if (cuenta.getNcuenta().equals(cuentatemp2)){
                     System.out.println("Introduzca la cantidad a ingresar.");
-                    double ingreso=so.nextDouble();
+                    double ingreso=Double.parseDouble(so.nextLine());
                     cuenta.ingresar(ingreso);                  
                 }
             
@@ -187,19 +187,17 @@ public class AplicacionBanco {
             System.out.println("Introduzca el numero de cuenta.");
             String cuentatemp3= so.nextLine();
             for (CuentaBancaria cuenta : listacuentas) {
-                if (cuenta.getNcuenta()==cuentatemp3){
-                    System.out.println("Introduzca la cantidad a retirar.");
-                    double reintegro=so.nextDouble();
+                if (cuenta.getNcuenta().equals(cuentatemp3)){                  
                     cuenta.retirar();
                 }
             }
             break;
         case 6:
-            System.out.println("Introduzca el numero de cuenta a ingresar.");
+            System.out.println("Introduzca el numero de cuenta.");
             String cuentatemp4= so.nextLine();
             for (CuentaBancaria cuenta : listacuentas) {
-                if (cuenta.getNcuenta()==cuentatemp4){
-                    cuenta.getSaldo();
+                if (cuenta.getNcuenta().equals(cuentatemp4)){
+                    System.out.println("Saldo cuenta: "+cuenta.getSaldo());
                 }
             
             
@@ -211,8 +209,10 @@ public class AplicacionBanco {
             break;
     }
      }
+     System.out.println("Opcion incorrecta.");
 }catch(Exception e) {
      System.out.println("Valor incorrecto: "+e.getMessage());
                     }
+    
 }
 }

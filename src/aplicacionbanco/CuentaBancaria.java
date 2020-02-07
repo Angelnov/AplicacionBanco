@@ -12,9 +12,9 @@ import java.util.Scanner;
  * @author Angelau
  */
 public class CuentaBancaria {
-    private Persona titular;
-    private double saldo;
-    private String ncuenta;
+    protected Persona titular;
+    protected double saldo;
+    protected String ncuenta;
     
     public CuentaBancaria(Persona titular, double saldo, String ncuenta){
         this.titular=titular;
